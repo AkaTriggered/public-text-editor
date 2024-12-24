@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Zoom Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            background-color: #f4f4f9;
+        }
+        textarea {
+            width: 90%;
+            height: 400px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .controls {
+            margin: 15px 0;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: #fff;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Text Zoom Editor</h1>
+    <div class="controls">
+        <button onclick="zoomIn()">Zoom In</button>
+        <button onclick="zoomOut()">Zoom Out</button>
+        <input type="text" id="searchBox" placeholder="Search text" oninput="highlightText()">
+    </div>
+    <textarea id="textArea" placeholder="Paste your text here..."></textarea>
+
+    <script>
+        const textArea = document.getElementById('textArea');
+        let fontSize = 16;
+
+        function zoomIn() {
+            fontSize += 2;
+            textArea.style.fontSize = fontSize + 'px';
+        }
+
+        function zoomOut() {
+            if (fontSize > 8) {
+                fontSize -= 2;
+                textArea.style.fontSize = fontSize + 'px';
+            }
+        }
+
+        function highlightText() {
+            const searchValue = document.getElementById('searchBox').value.toLowerCase();
+            const text = textArea.value;
+            const regex = new RegExp(searchValue, 'gi');
+            const highlighted = text.replace(regex, match => `<mark>${match}</mark>`);
+            textArea.innerHTML = highlighted;
+        }
+    </script>
+</body>
+</html>
